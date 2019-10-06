@@ -11,7 +11,7 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - PYTHONPATH=$PWD:$PYTHONPATH py.test tests/
+  - PYTHONPATH=$PWD:$PYTHONPATH py.test --cov=./friendlylog tests/
 
 # Push the results back to codecov
 after_success:

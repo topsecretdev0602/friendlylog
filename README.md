@@ -4,3 +4,4 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/SebiSebi/friendlylog/blob/master/LICENSE)
 [![Build Status](https://travis-ci.com/SebiSebi/friendlylog.svg?branch=master)](https://travis-ci.com/SebiSebi/friendlylog)
+[![codecov](https://codecov.io/gh/SebiSebi/friendlylog/branch/master/graph/badge.svg)](https://codecov.io/gh/SebiSebi/friendlylog)
