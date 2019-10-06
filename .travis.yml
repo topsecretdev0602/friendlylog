@@ -1,11 +1,18 @@
 language: python
+
 python:
   - "2.7"
   - "3.4"
   - "3.5"
   - "3.6"
   - "3.7"
+
 install:
   - pip install -r requirements.txt
+
 script:
   - PYTHONPATH=$PWD:$PYTHONPATH py.test tests/
+
+# Push the results back to codecov
+after_success:
+  - codecov
