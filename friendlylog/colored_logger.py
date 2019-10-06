@@ -1,13 +1,21 @@
 import logging
+import sys
 
 from colored import fg, attr
 from copy import copy
 
 
+# Where the logs should be sent.
+_STREAM = sys.stdout
+
 class _ColoredFormatter(logging.Formatter):
 
     def __init__(self, *args, **kwargs):
         super(_ColoredFormatter, self).__init__(*args, **kwargs)
+
+    @staticmethod
+    def _should_colorize():
+        return _STREAM.isatty()
 
     @staticmethod
     def _colorize(msg, loglevel):
@@ -22,6 +30,9 @@ class _ColoredFormatter(logging.Formatter):
             raise RuntimeError("{} should be oneof {}.".format(
                 loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))
         msg = str(loglevel).upper() + ": " + msg
+
+        if not _ColoredFormatter._should_colorize():
+            return msg
         if loglevel == DEBUG:
             return "{}{}{}{}{}".format(fg(14), attr(1), msg, attr(21), attr(0))  # noqa: E501
         if loglevel == INFO:
@@ -32,8 +43,7 @@ class _ColoredFormatter(logging.Formatter):
             return "{}{}{}{}{}".format(fg(202), attr(1), msg, attr(21), attr(0))  # noqa: E501
         if loglevel == CRITICAL:
             return "{}{}{}{}{}".format(fg(196), attr(1), msg, attr(21), attr(0))
-        return ""
-
+    
     def format(self, record):
         record = copy(record)
         loglevel = record.levelname
@@ -42,7 +52,7 @@ class _ColoredFormatter(logging.Formatter):
 
 
 _logger = logging.getLogger("shared.logging" + "-" + __name__)
-_stream_handler = logging.StreamHandler()
+_stream_handler = logging.StreamHandler(_STREAM)
 _formatter = _ColoredFormatter(
         fmt='[%(asctime)s.%(msecs)03d in %(pathname)s - %(funcName)s:%(lineno)4d] %(message)s',  # noqa: E501
         datefmt='%d-%b-%y %H:%M:%S'
