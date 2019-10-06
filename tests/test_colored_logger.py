@@ -4,10 +4,6 @@ import random
 import six
 import string
 import unittest
-try:
-    import mock
-except ImportError:
-    from unittest import mock
 
 from friendlylog import colored_logger as logger
 from threading import Thread
@@ -46,8 +42,7 @@ class TestColoredLogger(unittest.TestCase):
     def num_lines(self):
         return len(self.log_capture.getvalue().splitlines())
 
-    @mock.patch('sys.stdout.isatty', return_value=True)
-    def test_level_is_logged(self, _):
+    def test_level_is_logged(self):
         logger.debug("message 1")
         self.assertIn("DEBUG", self.last_line())
         logger.info("message 2")
@@ -59,8 +54,7 @@ class TestColoredLogger(unittest.TestCase):
         logger.critical("message 5")
         self.assertIn("CRITICAL", self.last_line())
 
-    @mock.patch('sys.stdout.isatty', return_value=True)
-    def test_function_is_logged(self, _):
+    def test_function_is_logged(self):
         logger.debug("message 1")
         self.assertIn(" test_function_is_logged", self.last_line())
         logger.info("message 2")
@@ -72,8 +66,7 @@ class TestColoredLogger(unittest.TestCase):
         logger.critical("message 5")
         self.assertIn(" test_function_is_logged", self.last_line())
 
-    @mock.patch('sys.stdout.isatty', return_value=True)
-    def test_filepath_is_logged(self, _):
+    def test_filepath_is_logged(self):
         logger.debug("message 1")
         self.assertIn("test_colored_logger.py", self.last_line())
         logger.info("message 2")
@@ -85,8 +78,7 @@ class TestColoredLogger(unittest.TestCase):
         logger.critical("message 5")
         self.assertIn("test_colored_logger.py", self.last_line())
 
-    @mock.patch('sys.stdout.isatty', return_value=True)
-    def test_message_is_logged(self, _):
+    def test_message_is_logged(self):
         logger.debug("message 1")
         self.assertIn("message 1", self.last_line())
         logger.info("message 2")
@@ -98,8 +90,7 @@ class TestColoredLogger(unittest.TestCase):
         logger.critical("message 5")
         self.assertIn("message 5", self.last_line())
 
-    @mock.patch('sys.stdout.isatty', return_value=True)
-    def test_levels(self, _):
+    def test_levels(self):
         def log_all():
             logger.debug("message 1")
             logger.info("message 2")
@@ -152,8 +143,7 @@ class TestColoredLogger(unittest.TestCase):
         self.assertEqual(self.num_lines(), 5 + 4 + 3 + 2 + 1)
         test_last(expected_logs[4:])
 
-    @mock.patch('sys.stdout.isatty', return_value=True)
-    def test_multi_threaded_is_ok(self, _):
+    def test_multi_threaded_is_ok(self):
         num_threads = 75
 
         def log_all(msg):
@@ -205,21 +195,7 @@ class TestColoredLogger(unittest.TestCase):
             for level in ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]:
                 self.assertEqual(count_in(log, level + ": " + msg), 11)
 
-    @mock.patch('sys.stdout.isatty', return_value=False)
-    def test_non_terminal_logging(self, _):
-        logger.debug("message to non-terminal device")
-        self.assertIn("DEBUG", self.last_line())
-        self.assertIn(" test_non_terminal_logging", self.last_line())
-        self.assertIn("test_colored_logger.py", self.last_line())
-        self.assertIn("message to non-terminal device", self.last_line())
-        self.assertEqual(len(self.last_line()), 161)
-
-        # All characters are ASCII.
-        self.assertTrue(all(ord(ch) < 128 for ch in self.last_line()))
-        self.last_line().encode('ascii')
-
-    @mock.patch('sys.stdout.isatty', return_value=True)
-    def test_terminal_logging(self, _):
+    def test_terminal_logging(self):
         logger.info("message to terminal device")
         self.assertIn("INFO", self.last_line())
         # 118 (the length without colors) + 4 coloring characters.

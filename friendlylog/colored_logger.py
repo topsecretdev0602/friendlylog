@@ -14,10 +14,6 @@ class _ColoredFormatter(logging.Formatter):
         super(_ColoredFormatter, self).__init__(*args, **kwargs)
 
     @staticmethod
-    def _should_colorize():
-        return _STREAM.isatty()
-
-    @staticmethod
     def _colorize(msg, loglevel):
         DEBUG = "debug"
         INFO = "info"
@@ -28,11 +24,9 @@ class _ColoredFormatter(logging.Formatter):
         loglevel = str(loglevel).lower()
         if loglevel not in [DEBUG, INFO, WARNING, ERROR, CRITICAL]:
             raise RuntimeError("{} should be oneof {}.".format(
-                loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))
+                loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))  # pragma: no cover
         msg = str(loglevel).upper() + ": " + msg
 
-        if not _ColoredFormatter._should_colorize():
-            return msg
         if loglevel == DEBUG:
             return "{}{}{}{}{}".format(fg(14), attr(1), msg, attr(21), attr(0))  # noqa: E501
         if loglevel == INFO:

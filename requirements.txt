@@ -4,4 +4,3 @@ codecov
 coverage
 pytest
 pytest-cov
-mock
