@@ -1,3 +1,3 @@
 #!/bin/bash
 
-green -vvv -r
+PYTHONPATH=$PWD:$PYTHONPATH py.test tests/
