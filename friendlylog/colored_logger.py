@@ -35,7 +35,7 @@ class _ColoredFormatter(logging.Formatter):
         record = copy(record)
         loglevel = record.levelname
         record.msg = _ColoredFormatter._colorize(record.msg, loglevel)
-        return super().format(record)
+        return super(_ColoredFormatter, self).format(record)
 
 
 _logger = logging.getLogger("shared.logging" + "-" + __name__)

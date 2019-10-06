@@ -1,6 +1,7 @@
 import io
 import logging
 import random
+import six
 import string
 import unittest
 
@@ -16,7 +17,10 @@ class TestColoredLogger(unittest.TestCase):
         logger.inner_logger.removeHandler(logger.inner_stream_handler)
 
         # Add handler that outputs to StringIO.
-        self.log_capture = io.StringIO()
+        if six.PY2:
+            self.log_capture = io.BytesIO()
+        else:
+            self.log_capture = io.StringIO()
         handler = logging.StreamHandler(self.log_capture)
         handler.setFormatter(logger.inner_formatter)
         logger.inner_logger.addHandler(handler)
