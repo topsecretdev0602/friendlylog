@@ -7,7 +7,7 @@ from copy import copy
 class _ColoredFormatter(logging.Formatter):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(_ColoredFormatter, self).__init__(*args, **kwargs)
 
     @staticmethod
     def _colorize(msg, loglevel):
