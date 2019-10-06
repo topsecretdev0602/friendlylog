@@ -18,7 +18,9 @@ class _ColoredFormatter(logging.Formatter):
         CRITICAL = "critical"
 
         loglevel = str(loglevel).lower()
-        assert(loglevel in [DEBUG, INFO, WARNING, ERROR, CRITICAL])
+        if loglevel not in [DEBUG, INFO, WARNING, ERROR, CRITICAL]:
+            raise RuntimeError("{} should be oneof {}.".format(
+                loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))
         msg = str(loglevel).upper() + ": " + msg
         if loglevel == DEBUG:
             return "{}{}{}{}{}".format(fg(14), attr(1), msg, attr(21), attr(0))  # noqa: E501
@@ -28,8 +30,9 @@ class _ColoredFormatter(logging.Formatter):
             return "{}{}{}{}{}".format(fg(214), attr(1), msg, attr(21), attr(0))  # noqa: E501
         if loglevel == ERROR:
             return "{}{}{}{}{}".format(fg(202), attr(1), msg, attr(21), attr(0))  # noqa: E501
-        assert(loglevel == CRITICAL)
-        return "{}{}{}{}{}".format(fg(196), attr(1), msg, attr(21), attr(0))
+        if loglevel == CRITICAL:
+            return "{}{}{}{}{}".format(fg(196), attr(1), msg, attr(21), attr(0))
+        return ""
 
     def format(self, record):
         record = copy(record)

@@ -99,7 +99,7 @@ class TestColoredLogger(unittest.TestCase):
             logger.critical("message 5")
 
         def test_last(expected):
-            assert(isinstance(expected, list))
+            self.assertIsInstance(expected, list)
             last_n = self.last_n_lines(len(expected))
             self.assertEqual(len(last_n), len(expected))
             for output, exp in zip(last_n, expected):
