@@ -37,7 +37,7 @@ class _ColoredFormatter(logging.Formatter):
             return "{}{}{}{}{}".format(fg(202), attr(1), msg, attr(21), attr(0))  # noqa: E501
         if loglevel == CRITICAL:
             return "{}{}{}{}{}".format(fg(196), attr(1), msg, attr(21), attr(0))
-    
+
     def format(self, record):
         record = copy(record)
         loglevel = record.levelname
