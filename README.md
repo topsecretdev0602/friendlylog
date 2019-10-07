@@ -64,7 +64,7 @@ log.error("error message")
 log.critical("critical message")
 ```
 
-Will result in the following logs:
+Will result in the following logs (`test.py` is the name of the file):
 
 <img src="https://github.com/SebiSebi/friendlylog/blob/master/images/colored_log.png" max-width="715" height="86"/>
 
