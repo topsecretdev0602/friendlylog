@@ -65,7 +65,8 @@ log.critical("critical message")
 ```
 
 Will result in the following logs:
-![Colored log](https://github.com/SebiSebi/friendlylog/blob/master/images/colored_log.png)
+
+<img src="https://github.com/SebiSebi/friendlylog/blob/master/images/colored_log.png" max-width="715" height="86"/>
 
 
 Contributing
