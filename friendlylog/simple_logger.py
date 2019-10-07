@@ -1,20 +1,19 @@
 import logging
 import sys
 
-from colored import fg, attr
 from copy import copy
 
 
 # Where the logs should be sent.
 _STREAM = sys.stdout
 
-class _ColoredFormatter(logging.Formatter):
+class _SimpleFormatter(logging.Formatter):
 
     def __init__(self, *args, **kwargs):
-        super(_ColoredFormatter, self).__init__(*args, **kwargs)
+        super(_SimpleFormatter, self).__init__(*args, **kwargs)
 
     @staticmethod
-    def _colorize(msg, loglevel):
+    def _process(msg, loglevel):
         DEBUG = "debug"
         INFO = "info"
         WARNING = "warning"
@@ -26,28 +25,18 @@ class _ColoredFormatter(logging.Formatter):
             raise RuntimeError("{} should be oneof {}.".format(
                 loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))  # pragma: no cover
         msg = str(loglevel).upper() + ": " + msg
-
-        if loglevel == DEBUG:
-            return "{}{}{}{}{}".format(fg(14), attr(1), msg, attr(21), attr(0))  # noqa: E501
-        if loglevel == INFO:
-            return "{}{}{}{}{}".format(fg(46), attr(1), msg, attr(21), attr(0))  # noqa: E501
-        if loglevel == WARNING:
-            return "{}{}{}{}{}".format(fg(214), attr(1), msg, attr(21), attr(0))  # noqa: E501
-        if loglevel == ERROR:
-            return "{}{}{}{}{}".format(fg(202), attr(1), msg, attr(21), attr(0))  # noqa: E501
-        if loglevel == CRITICAL:
-            return "{}{}{}{}{}".format(fg(196), attr(1), msg, attr(21), attr(0))
+        
+        return msg
 
     def format(self, record):
         record = copy(record)
         loglevel = record.levelname
-        record.msg = _ColoredFormatter._colorize(record.msg, loglevel)
-        return super(_ColoredFormatter, self).format(record)
+        record.msg = _SimpleFormatter._process(record.msg, loglevel)
+        return super(_SimpleFormatter, self).format(record)
 
-
-_logger = logging.getLogger("friendlylog.ColoredLogger" + "-" + __name__)
+_logger = logging.getLogger("friendlyLog.SimpleLogger" + "-" + __name__)
 _stream_handler = logging.StreamHandler(_STREAM)
-_formatter = _ColoredFormatter(
+_formatter = _SimpleFormatter(
         fmt='[%(asctime)s.%(msecs)03d in %(pathname)s - %(funcName)s:%(lineno)4d] %(message)s',  # noqa: E501
         datefmt='%d-%b-%y %H:%M:%S'
 )
