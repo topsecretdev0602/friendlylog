@@ -25,7 +25,7 @@ class _SimpleFormatter(logging.Formatter):
             raise RuntimeError("{} should be oneof {}.".format(
                 loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))  # pragma: no cover
         msg = str(loglevel).upper() + ": " + msg
-        
+
         return msg
 
     def format(self, record):
@@ -33,6 +33,7 @@ class _SimpleFormatter(logging.Formatter):
         loglevel = record.levelname
         record.msg = _SimpleFormatter._process(record.msg, loglevel)
         return super(_SimpleFormatter, self).format(record)
+
 
 _logger = logging.getLogger("friendlyLog.SimpleLogger" + "-" + __name__)
 _stream_handler = logging.StreamHandler(_STREAM)
