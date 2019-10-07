@@ -20,7 +20,52 @@ pip install friendlylog
 
 Usage
 -----
-TODO
+
+1. Simple Logger
+
+```python
+import logging
+
+from friendlylog import simple_logger as log
+
+# Anything above or including DEBUG will be logged.
+log.setLevel(logging.DEBUG) 
+
+log.debug("debug message")
+log.info("info message")
+log.warning("warning message")
+log.error("error message")
+log.critical("critical message")
+```
+
+Will result in the following logs (`test.py` is the name of the file):
+```
+[07-Oct-19 11:06:06.107 in test.py - <module>:   3] DEBUG: debug message
+[07-Oct-19 11:06:06.107 in test.py - <module>:   4] INFO: info message
+[07-Oct-19 11:06:06.107 in test.py - <module>:   5] WARNING: warning message
+[07-Oct-19 11:06:06.107 in test.py - <module>:   6] ERROR: error message
+[07-Oct-19 11:06:06.107 in test.py - <module>:   7] CRITICAL: critical message
+```
+
+2. Colored Logger
+
+```python
+import logging
+
+from friendlylog import colored_logger as log
+
+# Anything above or including DEBUG will be logged.
+log.setLevel(logging.DEBUG) 
+
+log.debug("debug message")
+log.info("info message")
+log.warning("warning message")
+log.error("error message")
+log.critical("critical message")
+```
+
+Will result in the following logs:
+![Colored log](https://github.com/SebiSebi/friendlylog/blob/master/images/colored_log.png)
 
 
 Contributing
