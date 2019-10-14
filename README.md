@@ -11,6 +11,7 @@
 
 FriendlyLog is a simple, colorful, user-friendly, thread-safe logger for `Python` (`2` and `3`).
 
+![FriendlyLog Tutorial](https://github.com/SebiSebi/friendlylog/blob/master/images/tutorial.gif)
 
 Install
 -------
