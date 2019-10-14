@@ -11,7 +11,7 @@ assert(long_description is not None)
 
 setup(
     name='friendlylog',
-    version='1.0',
+    version='1.0.1',
     description='Python logging for humans: colorful, clean interface, straightforward usage, simply friendly log.',
     author='sebisebi',
     author_email='gpirtoaca@gmail.com',
@@ -21,12 +21,9 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     install_requires=[
-        'six',
+        'colored>=1.4.0',
+        'six>=1.12.0',
     ],
-    extras_require={
-        'colored': ['colored>=1.4.0'],
-        'six': ['six>=1.12.0'],
-    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 2",
