@@ -8,6 +8,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/803817c9fe964b8b8b591112ab41e913)](https://www.codacy.com/manual/SebiSebi/friendlylog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SebiSebi/friendlylog&amp;utm_campaign=Badge_Grade)
 
 [![Python Versions](https://img.shields.io/badge/python-2.7%20%7C%203.4%20%7C%203.5%20%7C%203.6%20%7C%203.7-blue)](https://pypi.org/project/friendlylog/)
+[![PyPi stats](https://github.com/SebiSebi/friendlylog)](https://pypistats.org/packages/friendlylog)
 
 FriendlyLog is a simple, colorful, user-friendly, thread-safe logger for `Python` (`2` and `3`).
 
