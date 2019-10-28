@@ -3,11 +3,21 @@ import sys
 
 from colored import fg, attr
 from copy import copy
+from friendlylog.constants import (
+        DEBUG,
+        INFO,
+        WARNING,
+        ERROR,
+        CRITICAL,
+
+        LOG_LEVEL_LIST
+)
 from friendlylog.utils import do_not_propagate
 
 
 # Where the logs should be sent.
 _STREAM = sys.stdout
+
 
 class _ColoredFormatter(logging.Formatter):
 
@@ -16,16 +26,10 @@ class _ColoredFormatter(logging.Formatter):
 
     @staticmethod
     def _colorize(msg, loglevel):
-        DEBUG = "debug"
-        INFO = "info"
-        WARNING = "warning"
-        ERROR = "error"
-        CRITICAL = "critical"
-
         loglevel = str(loglevel).lower()
-        if loglevel not in [DEBUG, INFO, WARNING, ERROR, CRITICAL]:
+        if loglevel not in LOG_LEVEL_LIST:
             raise RuntimeError("{} should be oneof {}.".format(
-                loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))  # pragma: no cover
+                loglevel, LOG_LEVEL_LIST))  # pragma: no cover
         msg = str(loglevel).upper() + ": " + str(msg)
 
         if loglevel == DEBUG:
@@ -37,7 +41,7 @@ class _ColoredFormatter(logging.Formatter):
         if loglevel == ERROR:
             return "{}{}{}{}{}".format(fg(202), attr(1), msg, attr(21), attr(0))  # noqa: E501
         if loglevel == CRITICAL:
-            return "{}{}{}{}{}".format(fg(196), attr(1), msg, attr(21), attr(0))
+            return "{}{}{}{}{}".format(fg(196), attr(1), msg, attr(21), attr(0))  # noqa: E501
 
     def format(self, record):
         record = copy(record)

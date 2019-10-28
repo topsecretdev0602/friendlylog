@@ -2,11 +2,15 @@ import logging
 import sys
 
 from copy import copy
+from friendlylog.constants import (
+        LOG_LEVEL_LIST
+)
 from friendlylog.utils import do_not_propagate
 
 
 # Where the logs should be sent.
 _STREAM = sys.stdout
+
 
 class _SimpleFormatter(logging.Formatter):
 
@@ -15,19 +19,11 @@ class _SimpleFormatter(logging.Formatter):
 
     @staticmethod
     def _process(msg, loglevel):
-        DEBUG = "debug"
-        INFO = "info"
-        WARNING = "warning"
-        ERROR = "error"
-        CRITICAL = "critical"
-
         loglevel = str(loglevel).lower()
-        if loglevel not in [DEBUG, INFO, WARNING, ERROR, CRITICAL]:
+        if loglevel not in LOG_LEVEL_LIST:
             raise RuntimeError("{} should be oneof {}.".format(
-                loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))  # pragma: no cover
-        msg = str(loglevel).upper() + ": " + str(msg)
-
-        return msg
+                loglevel, LOG_LEVEL_LIST))  # pragma: no cover
+        return str(loglevel).upper() + ": " + str(msg)
 
     def format(self, record):
         record = copy(record)
