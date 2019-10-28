@@ -201,6 +201,15 @@ class TestColoredLogger(unittest.TestCase):
         # 118 (the length without colors) + 4 coloring characters.
         self.assertGreaterEqual(len(self.last_line()), 118 + 4)
 
+    def test_non_str_logging(self):
+        logger.info(10)
+        self.assertIn("10", self.last_line())
+
+        # Those should not throw any error.
+        logger.debug([10, 20, 30])
+        logger.critical({})
+        logger.warning(set([-1, 4]))
+
 
 if __name__ == '__main__':
     unittest.main()

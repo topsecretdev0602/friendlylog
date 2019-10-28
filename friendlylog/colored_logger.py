@@ -26,7 +26,7 @@ class _ColoredFormatter(logging.Formatter):
         if loglevel not in [DEBUG, INFO, WARNING, ERROR, CRITICAL]:
             raise RuntimeError("{} should be oneof {}.".format(
                 loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))  # pragma: no cover
-        msg = str(loglevel).upper() + ": " + msg
+        msg = str(loglevel).upper() + ": " + str(msg)
 
         if loglevel == DEBUG:
             return "{}{}{}{}{}".format(fg(14), attr(1), msg, attr(21), attr(0))  # noqa: E501

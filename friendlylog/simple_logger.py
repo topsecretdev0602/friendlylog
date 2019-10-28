@@ -25,7 +25,7 @@ class _SimpleFormatter(logging.Formatter):
         if loglevel not in [DEBUG, INFO, WARNING, ERROR, CRITICAL]:
             raise RuntimeError("{} should be oneof {}.".format(
                 loglevel, [DEBUG, INFO, WARNING, ERROR, CRITICAL]))  # pragma: no cover
-        msg = str(loglevel).upper() + ": " + msg
+        msg = str(loglevel).upper() + ": " + str(msg)
 
         return msg
 

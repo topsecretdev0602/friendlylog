@@ -195,6 +195,15 @@ class TestSimpleLogger(unittest.TestCase):
             for level in ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]:
                 self.assertEqual(count_in(log, level + ": " + msg), 11)
 
+    def test_non_str_logging(self):
+        logger.info(-412413)
+        self.assertIn("-412413", self.last_line())
+
+        # Those should not throw any error.
+        logger.debug([101, 40, 35])
+        logger.critical({})
+        logger.warning(set([-1, 4, 10, -100]))
+
 
 if __name__ == '__main__':
     unittest.main()
