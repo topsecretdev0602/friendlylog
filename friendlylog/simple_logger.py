@@ -2,6 +2,7 @@ import logging
 import sys
 
 from copy import copy
+from friendlylog.utils import do_not_propagate
 
 
 # Where the logs should be sent.
@@ -36,6 +37,8 @@ class _SimpleFormatter(logging.Formatter):
 
 
 _logger = logging.getLogger("friendlyLog.SimpleLogger" + "-" + __name__)
+do_not_propagate(_logger)
+
 _stream_handler = logging.StreamHandler(_STREAM)
 _formatter = _SimpleFormatter(
         fmt='[%(asctime)s.%(msecs)03d in %(pathname)s - %(funcName)s:%(lineno)4d] %(message)s',  # noqa: E501
