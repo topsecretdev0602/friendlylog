@@ -11,7 +11,7 @@ assert(long_description is not None)
 
 setup(
     name='friendlylog',
-    version='1.0.1',
+    version='1.0.2',
     description='Python logging for humans: colorful, clean interface, straightforward usage, simply friendly log.',
     author='sebisebi',
     author_email='gpirtoaca@gmail.com',
